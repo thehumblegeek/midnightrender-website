@@ -81,7 +81,21 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="bg-black min-h-screen text-white selection:bg-white selection:text-black">
+    <div id="top" className="bg-black min-h-screen text-white selection:bg-white selection:text-black">
+      {/* JSON-LD Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "MidnightRender",
+            "url": "https://midnightrender.com",
+            "description": "Cinema quality AI video production. We craft viral content for brands, artists, and studios.",
+            "sameAs": []
+          })
+        }}
+      />
       <Navbar />
 
       <main>

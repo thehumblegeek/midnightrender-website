@@ -18,9 +18,19 @@ export const BookingSection: React.FC = () => {
   return (
     <section id="contact" className="py-32 px-6 md:px-12 bg-black min-h-[80vh] flex flex-col justify-center">
       <div className="max-w-5xl mx-auto w-full">
-        <h2 className="text-5xl md:text-9xl font-bold tracking-tighter mb-16 text-white text-center md:text-left">
+        <h2 className="text-5xl md:text-9xl font-bold tracking-tighter mb-8 text-white text-center md:text-left">
           Book a call with us!
         </h2>
+
+        <p className="text-lg text-gray-400 mb-16 text-center md:text-left">
+          Or reach us directly at{' '}
+          <a
+            href="mailto:hello@midnightrender.com"
+            className="text-white underline underline-offset-4 hover:opacity-70 transition-opacity focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
+          >
+            hello@midnightrender.com
+          </a>
+        </p>
 
         {/* Calendly inline widget */}
         <div
