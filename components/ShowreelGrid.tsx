@@ -93,19 +93,13 @@ const LazyVideo: React.FC<{
 
       {/* Bottom Text Overlay */}
       <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 bg-gradient-to-t from-black/80 to-transparent">
-        <div className="max-w-4xl flex justify-between items-end">
-          <div>
-            <h4 className="text-2xl md:text-5xl font-black tracking-tighter text-white mb-2">
-              {item.title}
-            </h4>
-            <p className="text-sm md:text-lg font-bold text-white/90">
-              {item.category}
-            </p>
-          </div>
-          {/* View count badge */}
-          <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold text-white/50 hidden md:block">
-            {item.year}
-          </span>
+        <div className="max-w-4xl">
+          <h4 className="text-2xl md:text-5xl font-black tracking-tighter text-white mb-2">
+            {item.title}
+          </h4>
+          <p className="text-sm md:text-lg font-bold text-white/90">
+            {item.category}
+          </p>
         </div>
       </div>
 

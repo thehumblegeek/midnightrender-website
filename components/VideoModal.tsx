@@ -1,7 +1,6 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { ShowreelItem } from '../types';
-import { generateDirectorVision } from '../services/geminiService';
 
 interface VideoModalProps {
   item: ShowreelItem | null;
@@ -9,12 +8,10 @@ interface VideoModalProps {
 }
 
 export const VideoModal: React.FC<VideoModalProps> = ({ item, onClose }) => {
-  const [vision, setVision] = useState<string>('Generating director vision...');
 
   useEffect(() => {
     if (item) {
       document.body.style.overflow = 'hidden';
-      generateDirectorVision(item.title, item.category).then(setVision);
     } else {
       document.body.style.overflow = 'auto';
     }
@@ -44,6 +41,8 @@ export const VideoModal: React.FC<VideoModalProps> = ({ item, onClose }) => {
         <video
           controls
           autoPlay
+          controlsList="nodownload"
+          onContextMenu={(e) => e.preventDefault()}
           className="w-full h-full object-cover"
         >
           <source src={item.videoUrl} type={item.videoUrl.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'} />
@@ -52,11 +51,8 @@ export const VideoModal: React.FC<VideoModalProps> = ({ item, onClose }) => {
         {/* Info Overlay */}
         <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black to-transparent pointer-events-none">
           <div className="max-w-3xl">
-            <span className="text-xs uppercase tracking-widest text-gray-400">{item.category} • {item.year}</span>
-            <h3 className="text-3xl md:text-4xl font-serif font-bold mt-2 mb-4">{item.title}</h3>
-            <p className="text-sm md:text-base text-gray-300 font-light italic opacity-90">
-              &ldquo;{vision}&rdquo;
-            </p>
+            <span className="text-xs uppercase tracking-widest text-gray-400">{item.category}</span>
+            <h3 className="text-3xl md:text-4xl font-serif font-bold mt-2">{item.title}</h3>
           </div>
         </div>
       </div>
