@@ -2,61 +2,14 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { ShowreelItem } from '../types';
 
+// Preview loops: each grid video plays only the first 5 seconds on repeat
+const PREVIEW_DURATION = 5;
+
 interface ShowreelGridProps {
   items: ShowreelItem[];
   onSelectItem: (item: ShowreelItem) => void;
   generatingIds: string[];
 }
-
-/**
- * Extracts the first frame of a video as a data URL using an offscreen canvas.
- * The video loads only enough metadata + first frame, draws it to canvas, then releases.
- */
-function extractFirstFrame(videoSrc: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const video = document.createElement('video');
-    video.crossOrigin = 'anonymous';
-    video.muted = true;
-    video.preload = 'metadata';
-    video.playsInline = true;
-
-    const cleanup = () => {
-      video.removeAttribute('src');
-      video.load(); // release resources
-    };
-
-    video.addEventListener('loadeddata', () => {
-      try {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          const dataUrl = canvas.toDataURL('image/webp', 0.8);
-          cleanup();
-          resolve(dataUrl);
-        } else {
-          cleanup();
-          reject(new Error('Could not get canvas context'));
-        }
-      } catch (err) {
-        cleanup();
-        reject(err);
-      }
-    }, { once: true });
-
-    video.addEventListener('error', () => {
-      cleanup();
-      reject(new Error(`Failed to load video: ${videoSrc}`));
-    }, { once: true });
-
-    video.src = videoSrc;
-  });
-}
-
-// Module-level cache so thumbnails persist across re-renders
-const thumbnailCache: Record<string, string> = {};
 
 const LazyVideo: React.FC<{
   item: ShowreelItem;
@@ -66,33 +19,30 @@ const LazyVideo: React.FC<{
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
-  const [thumbnail, setThumbnail] = useState<string>(thumbnailCache[item.videoUrl] || '');
+  const isInViewRef = useRef(false);
 
-  // Extract first frame thumbnail on mount (lightweight — only loads metadata)
-  useEffect(() => {
-    if (thumbnailCache[item.videoUrl]) {
-      setThumbnail(thumbnailCache[item.videoUrl]);
-      return;
+  // Loop the first 5 seconds: when time exceeds PREVIEW_DURATION, reset to 0
+  const handleTimeUpdate = useCallback(() => {
+    const video = videoRef.current;
+    if (video && video.currentTime >= PREVIEW_DURATION) {
+      video.currentTime = 0;
     }
-    extractFirstFrame(item.videoUrl).then(dataUrl => {
-      thumbnailCache[item.videoUrl] = dataUrl;
-      setThumbnail(dataUrl);
-    }).catch(() => {
-      // Silently fail — will just show black bg
-    });
-  }, [item.videoUrl]);
+  }, []);
 
-  // Intersection Observer: only start video playback when visible
+  // Intersection Observer: play/pause based on visibility
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
+        isInViewRef.current = entry.isIntersecting;
         if (entry.isIntersecting) {
           setIsVisible(true);
-          setShouldPlayVideo(true);
+          // Resume playback when scrolled back into view
+          if (videoRef.current && videoReady) {
+            videoRef.current.currentTime = 0;
+            videoRef.current.play().catch(() => { });
+          }
         } else {
-          setShouldPlayVideo(false);
           if (videoRef.current) {
             videoRef.current.pause();
           }
@@ -106,14 +56,15 @@ const LazyVideo: React.FC<{
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [videoReady]);
 
-  // Play/pause based on visibility
-  useEffect(() => {
-    if (shouldPlayVideo && videoRef.current) {
+  // Start playing once video is ready and in view
+  const handleCanPlay = useCallback(() => {
+    setVideoReady(true);
+    if (isInViewRef.current && videoRef.current) {
       videoRef.current.play().catch(() => { });
     }
-  }, [shouldPlayVideo, isVisible]);
+  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -132,25 +83,26 @@ const LazyVideo: React.FC<{
       onClick={() => !isGenerating && onSelect()}
       onKeyDown={handleKeyDown}
     >
-      {/* Static thumbnail — always visible as base layer, extracted from first frame */}
-      {thumbnail && (
+      {/* Static thumbnail — loads instantly, hides once video is ready */}
+      {item.thumbnailUrl && (
         <img
-          src={thumbnail}
+          src={item.thumbnailUrl}
           alt=""
-          className={`absolute inset-0 w-full h-full object-cover grayscale-[20%] ${isGenerating ? 'opacity-30 blur-sm' : 'opacity-80'}`}
+          loading="lazy"
+          className={`absolute inset-0 w-full h-full object-cover grayscale-[20%] transition-opacity duration-500 ${videoReady ? 'opacity-0 pointer-events-none' : isGenerating ? 'opacity-30 blur-sm' : 'opacity-80'}`}
         />
       )}
 
-      {/* Background Video — overlaid on top, fades in only when ready to play */}
+      {/* Background Video — preloaded, loops first 5 seconds */}
       {isVisible && (
         <video
           ref={videoRef}
           key={item.videoUrl}
           muted
-          loop
           playsInline
           preload="auto"
-          onCanPlay={() => setVideoReady(true)}
+          onCanPlay={handleCanPlay}
+          onTimeUpdate={handleTimeUpdate}
           className={`absolute inset-0 w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-[1s] ease-out ${videoReady ? (isGenerating ? 'opacity-30 blur-sm' : 'opacity-80') : 'opacity-0'}`}
         >
           <source src={item.videoUrl} type={item.videoUrl.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'} />
