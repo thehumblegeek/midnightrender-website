@@ -75,7 +75,7 @@ const LazyVideo: React.FC<{
         loop
         playsInline
         poster={item.thumbnailUrl}
-        preload="none"
+        preload="metadata"
         className={`w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-[1s] ease-out ${isGenerating ? 'opacity-30 blur-sm' : 'opacity-80'}`}
       >
         {isVisible && <source src={item.videoUrl} type={item.videoUrl.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'} />}
