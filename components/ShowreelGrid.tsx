@@ -67,6 +67,7 @@ const LazyVideo: React.FC<{
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const [thumbnail, setThumbnail] = useState<string>(thumbnailCache[item.videoUrl] || '');
 
   // Extract first frame thumbnail on mount (lightweight — only loads metadata)
@@ -131,8 +132,8 @@ const LazyVideo: React.FC<{
       onClick={() => !isGenerating && onSelect()}
       onKeyDown={handleKeyDown}
     >
-      {/* Static thumbnail — loads instantly from canvas-extracted first frame */}
-      {thumbnail && !isVisible && (
+      {/* Static thumbnail — always visible as base layer, extracted from first frame */}
+      {thumbnail && (
         <img
           src={thumbnail}
           alt=""
@@ -140,7 +141,7 @@ const LazyVideo: React.FC<{
         />
       )}
 
-      {/* Background Video — only loaded when scrolled into view */}
+      {/* Background Video — overlaid on top, fades in only when ready to play */}
       {isVisible && (
         <video
           ref={videoRef}
@@ -148,9 +149,9 @@ const LazyVideo: React.FC<{
           muted
           loop
           playsInline
-          poster={thumbnail || undefined}
           preload="auto"
-          className={`w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-[1s] ease-out ${isGenerating ? 'opacity-30 blur-sm' : 'opacity-80'}`}
+          onCanPlay={() => setVideoReady(true)}
+          className={`absolute inset-0 w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-[1s] ease-out ${videoReady ? (isGenerating ? 'opacity-30 blur-sm' : 'opacity-80') : 'opacity-0'}`}
         >
           <source src={item.videoUrl} type={item.videoUrl.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'} />
         </video>
