@@ -6,6 +6,7 @@ import { About } from './components/About';
 import { ShowreelGrid } from './components/ShowreelGrid';
 import { VideoModal } from './components/VideoModal';
 import { BookingSection } from './components/BookingSection';
+import { TestimonialCarousel, LogoMarquee } from './components/Testimonials';
 import { Footer } from './components/Footer';
 import { ShowreelItem } from './types';
 import { SHOWREEL_DATA } from './constants';
@@ -100,15 +101,25 @@ const App: React.FC = () => {
 
       <main>
         <Hero />
-        <About />
 
-
+        {/* Combined Social Proof Section */}
+        <section className="bg-black py-16 md:py-24 px-6 md:px-16 overflow-hidden border-y border-white/5">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start mb-20">
+              <About />
+              <TestimonialCarousel />
+            </div>
+            <LogoMarquee />
+          </div>
+        </section>
 
         <ShowreelGrid
           items={items}
           generatingIds={generatingIds}
           onSelectItem={(item) => setSelectedItem(item)}
         />
+
+        {/* Removed standalone Testimonials as it's now integrated above */}
 
         <BookingSection />
       </main>

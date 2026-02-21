@@ -1,29 +1,34 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MIDNIGHTRENDER — Cinema Quality AI Video Production</title>
-  <meta name="description" content="MidnightRender crafts viral, cinema-quality AI video content for brands, artists, and studios. Tomorrow's content, rendered tonight.">
+  <meta name="description"
+    content="MidnightRender crafts viral, cinema-quality AI video content for brands, artists, and studios. Tomorrow's content, rendered tonight.">
   <link rel="icon" type="image/png" href="/logo.png">
   <link rel="canonical" href="https://midnightrender.com">
 
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="MIDNIGHTRENDER — Cinema Quality AI Video Production">
-  <meta property="og:description" content="We craft viral, cinema-quality AI video content for brands, artists, and studios.">
+  <meta property="og:description"
+    content="We craft viral, cinema-quality AI video content for brands, artists, and studios.">
   <meta property="og:image" content="/logo.png">
   <meta property="og:url" content="https://midnightrender.com">
   <meta name="twitter:card" content="summary_large_image">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
   <style>
     html {
       scroll-behavior: smooth;
     }
+
     body {
       background-color: #000;
       color: #fff;
@@ -31,31 +36,65 @@
       margin: 0;
       overflow-x: hidden;
     }
+
     .font-serif {
       font-family: 'Playfair Display', serif;
     }
+
     ::-webkit-scrollbar {
       width: 4px;
     }
+
     ::-webkit-scrollbar-track {
       background: #000;
     }
+
     ::-webkit-scrollbar-thumb {
       background: #333;
       border-radius: 10px;
     }
+
     .video-mask {
       mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
     }
+
     @keyframes subtle-zoom {
-      from { transform: scale(1); }
-      to { transform: scale(1.05); }
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.05);
+      }
     }
+
     .animate-zoom {
       animation: subtle-zoom 20s infinite alternate ease-in-out;
     }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
   </style>
-<script type="importmap">
+  <script type="importmap">
 {
   "imports": {
     "react/": "https://esm.sh/react@^19.2.4/",
@@ -65,10 +104,12 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
+
 <body>
   <div id="root"></div>
-<script type="module" src="/index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>

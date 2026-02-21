@@ -6,6 +6,11 @@
             "id": "37aaf15a1a3943418f813ebc8c05d6a1",
             "title": "Main Screen",
             "deviceType": "DESKTOP"
+        },
+        {
+            "id": "bd297b7740364155b07b79a9d821fb4b",
+            "title": "Midnight Render Social Proof Section",
+            "deviceType": "DESKTOP"
         }
     ],
     "previousProjectId": "14595497085012614628"
