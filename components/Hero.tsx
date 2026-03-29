@@ -1,8 +1,23 @@
 
-import React from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 export const Hero: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Programmatic play — more reliable than declarative autoPlay across browsers
+  const tryPlay = useCallback(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true; // ensure muted (required by browser autoplay policy)
+      video.play().catch(() => { /* silently handle if browser still blocks */ });
+    }
+  }, []);
+
+  useEffect(() => {
+    tryPlay();
+  }, [tryPlay]);
+
   return (
     <section id="top" className="relative w-full h-screen overflow-hidden">
       {/* SEO: Hidden h1 for search engines */}
@@ -10,11 +25,14 @@ export const Hero: React.FC = () => {
 
       {/* Full-screen background video */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
         poster="/logo.png"
+        onCanPlay={tryPlay}
         className="absolute inset-0 w-full h-full object-cover animate-zoom"
       >
         <source src="/videos/Update 1 Show Reel.mp4" type="video/mp4" />
