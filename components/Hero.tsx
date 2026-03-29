@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Hero: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ export const Hero: React.FC = () => {
         poster="/logo.png"
         className="absolute inset-0 w-full h-full object-cover animate-zoom"
       >
-        <source src="/videos/1. Show Reel.mp4" type="video/mp4" />
+        <source src="/videos/Update 1 Show Reel.mp4" type="video/mp4" />
       </video>
 
       {/* Dark gradient overlay for text readability */}
@@ -43,6 +44,12 @@ export const Hero: React.FC = () => {
             >
               Book a Call
             </a>
+            <Link
+              to="/works"
+              className="inline-block text-[11px] uppercase tracking-[0.3em] font-bold text-white border border-white/40 px-6 py-3 hover:bg-white hover:text-black transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
+            >
+              View Our Full Portfolio
+            </Link>
           </div>
         </div>
       </div>

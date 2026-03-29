@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -8,6 +9,7 @@ import { VideoModal } from './components/VideoModal';
 import { BookingSection } from './components/BookingSection';
 import { TestimonialCarousel, LogoMarquee } from './components/Testimonials';
 import { Footer } from './components/Footer';
+import { AllWorks } from './components/AllWorks';
 import { ShowreelItem } from './types';
 import { SHOWREEL_DATA } from './constants';
 import { generateVeoVideo } from './services/videoService';
@@ -15,7 +17,7 @@ import { generateVeoVideo } from './services/videoService';
 // The environment provides window.aistudio. We remove the custom declaration 
 // to avoid conflicts with the built-in AIStudio type definition.
 
-const App: React.FC = () => {
+const HomePage: React.FC = () => {
   const [items, setItems] = useState<ShowreelItem[]>(SHOWREEL_DATA);
   const [selectedItem, setSelectedItem] = useState<ShowreelItem | null>(null);
   const [generatingIds, setGeneratingIds] = useState<string[]>([]);
@@ -40,10 +42,7 @@ const App: React.FC = () => {
     try {
       // @ts-ignore
       await window.aistudio.openSelectKey();
-      // Assume success after triggering the dialog as per instructions to avoid race condition
       setIsAiEnabled(true);
-
-      // Start generating videos for placeholders
       generateAllVideos();
     } catch (error) {
       console.error("Key selection failed", error);
@@ -51,7 +50,6 @@ const App: React.FC = () => {
   };
 
   const generateAllVideos = async () => {
-    // Sequential generation to avoid rate limits and provide clear feedback
     for (const itemData of SHOWREEL_DATA) {
       setGeneratingIds(prev => [...prev, itemData.id]);
 
@@ -63,8 +61,6 @@ const App: React.FC = () => {
       } catch (error: any) {
         console.error(`Failed to generate video for ${itemData.id}`, error);
 
-        // If the request fails with "Requested entity was not found.", 
-        // reset the key selection state and prompt the user to select a key again via openSelectKey().
         if (error?.message?.includes("Requested entity was not found.")) {
           setIsAiEnabled(false);
           // @ts-ignore
@@ -72,7 +68,6 @@ const App: React.FC = () => {
             // @ts-ignore
             await window.aistudio.openSelectKey();
           }
-          // Break the loop as the user needs to select a valid key first
           break;
         }
       } finally {
@@ -119,7 +114,15 @@ const App: React.FC = () => {
           onSelectItem={(item) => setSelectedItem(item)}
         />
 
-        {/* Removed standalone Testimonials as it's now integrated above */}
+        {/* View Full Portfolio Button */}
+        <div className="bg-black py-20 px-6 text-center border-b border-white/5">
+          <Link
+            to="/works"
+            className="inline-block text-[11px] uppercase tracking-[0.3em] font-bold text-white border border-white/40 px-10 py-4 hover:bg-white hover:text-black transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
+          >
+            View our Full Portfolio
+          </Link>
+        </div>
 
         <BookingSection />
       </main>
@@ -131,6 +134,17 @@ const App: React.FC = () => {
         onClose={() => setSelectedItem(null)}
       />
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/works" element={<AllWorks />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

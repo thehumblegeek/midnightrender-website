@@ -26,6 +26,24 @@ const TESTIMONIALS: Testimonial[] = [
         role: "VP of Marketing",
         company: "Moddy"
     },
+    {
+        quote: "We had a wonderful experience with Sage. We came to him with an idea for an AI video. He listened, asked great questions and offered pathway's forward. Based on understanding the feeling we were trying to create, he came to us with an out of the box idea that was exactly what we needed. He provided updates, shared content for review regularly, and delivered an award winning video on time that will stand the test of time. He is a visionary and a great collaborative partner. I highly recommend him and would hire him again.",
+        name: "FASIKA M",
+        role: "",
+        company: ""
+    },
+    {
+        quote: "Sage is exceptionally talented. He works quickly and delivers top-tier work. One incredibly rare skill-set that Sage has is his ability to anticipate needs and elevate the outcomes of the project based on that insight. I gave very detailed storyboarding and scripting, which allowed for quick execution. But Sage took the initiative to offer improvements to the storyboard and script that truly made the final product better than anticipated. I highly recommend working with Sage for professional AI-generated video content.",
+        name: "BILL P",
+        role: "",
+        company: ""
+    },
+    {
+        quote: "Sage's expertise in AI video creation is exceptional. I've worked with many freelancers, and his level of knowledge, execution, and creative vision in this space is in a different league. He really understands how to bring ideas to life with AI. Working with Sage was seamless from start to finish. He has a unique ability to take rough or incomplete ideas and turn them into polished, high-quality content that feels fully thought out and intentional. If you're looking for someone who not only executes but enhances your vision, Sage is someone you will not regret working with.",
+        name: "JARROD B",
+        role: "",
+        company: ""
+    },
 ];
 
 interface LogoItem {
@@ -35,12 +53,12 @@ interface LogoItem {
 
 const LOGOS: LogoItem[] = [
     { name: 'AlterMe', file: '/logos/AlterMe.jpeg' },
-    { name: 'Better', file: '/logos/Better.jpeg' },
-    { name: "Denny's", file: '/logos/Dennys.jpeg' },
-    { name: 'Moddy', file: '/logos/Moddy.jpeg' },
+    { name: 'Better', file: '/logos/Better.png' },
+    { name: "Denny's", file: '/logos/Dennys.png' },
+    { name: 'Moddy', file: '/logos/Moddy.png' },
     { name: 'No Scrubs', file: '/logos/NoScrubs.jpeg' },
-    { name: 'Padsplit', file: '/logos/Padsplit.jpeg' },
-    { name: 'Qodo', file: '/logos/qodo.jpeg' },
+    { name: 'Padsplit', file: '/logos/Padsplit.png' },
+    { name: 'Qodo', file: '/logos/qodo.png' },
 ];
 
 export const TestimonialCarousel: React.FC = () => {
@@ -173,18 +191,19 @@ export const LogoMarquee: React.FC = () => {
                 <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
                 <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
-                <div className="animate-marquee flex items-center gap-6 whitespace-nowrap">
+                <div className="animate-marquee flex items-center gap-8 whitespace-nowrap">
                     {/* First set */}
                     {LOGOS.map((logo, i) => (
                         <div
                             key={`pill-a-${i}`}
-                            className="flex-shrink-0 bg-white/[0.02] border border-white/5 px-6 py-3 rounded-xl flex items-center justify-center backdrop-blur-sm hover:bg-white/[0.05] transition-colors"
+                            className="flex-shrink-0 border border-white/5 px-6 py-3 rounded-xl flex items-center justify-center hover:border-white/10 transition-colors"
                             style={{ minWidth: '150px' }}
                         >
                             <img
                                 src={logo.file}
                                 alt={logo.name}
-                                className="h-4 md:h-5 w-auto object-contain transition-all duration-500 grayscale opacity-30 hover:grayscale-0 hover:opacity-100"
+                                className="h-8 md:h-10 w-auto object-contain transition-all duration-500 grayscale opacity-50 hover:grayscale-0 hover:opacity-100"
+                                style={{ mixBlendMode: 'lighten' }}
                                 loading="lazy"
                             />
                         </div>
@@ -193,13 +212,14 @@ export const LogoMarquee: React.FC = () => {
                     {LOGOS.map((logo, i) => (
                         <div
                             key={`pill-b-${i}`}
-                            className="flex-shrink-0 bg-white/[0.02] border border-white/5 px-6 py-3 rounded-xl flex items-center justify-center backdrop-blur-sm hover:bg-white/[0.05] transition-colors"
+                            className="flex-shrink-0 border border-white/5 px-6 py-3 rounded-xl flex items-center justify-center hover:border-white/10 transition-colors"
                             style={{ minWidth: '150px' }}
                         >
                             <img
                                 src={logo.file}
                                 alt={logo.name}
-                                className="h-4 md:h-5 w-auto object-contain transition-all duration-500 grayscale opacity-30 hover:grayscale-0 hover:opacity-100"
+                                className="h-8 md:h-10 w-auto object-contain transition-all duration-500 grayscale opacity-50 hover:grayscale-0 hover:opacity-100"
+                                style={{ mixBlendMode: 'lighten' }}
                                 loading="lazy"
                             />
                         </div>

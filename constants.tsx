@@ -7,10 +7,20 @@ export interface ExtendedShowreelItem extends ShowreelItem {
 
 export const SHOWREEL_DATA: ExtendedShowreelItem[] = [
   {
+    id: 'bad-driving',
+    title: 'DENNY\'S — CHROMA AWARDS',
+    category: '',
+    videoUrl: '/videos/We\'ve Had It In Us All Along - Chroma Awards - Official Denny\'s Music Video.mp4',
+    thumbnailUrl: '',
+    description: 'A comedic commercial that turns terrible driving into unforgettable entertainment.',
+    year: '20M VIEWS',
+    prompt: 'A comedic, over-the-top driving sequence with a panicked passenger, filmed in a retro 80s style with neon lighting and dramatic angles.'
+  },
+  {
     id: 'atombit',
     title: 'SHADES OF BLUE',
-    category: 'Atombit — Feel the frequency.',
-    videoUrl: '/videos/2. Shades of Blue - Atombit.mp4',
+    category: '',
+    videoUrl: '/videos/Atombit Minisite v2 (with dialogue).mp4',
     thumbnailUrl: '/thumbnails/shades-of-blue.webp',
     description: 'A moody, atmospheric brand film that captures the essence of Atombit\'s sonic identity.',
     year: '10M VIEWS',
@@ -19,7 +29,7 @@ export const SHOWREEL_DATA: ExtendedShowreelItem[] = [
   {
     id: 'hero-music',
     title: 'NEW HERO',
-    category: 'Music that moves mountains.',
+    category: '',
     videoUrl: '/videos/3. New hero music.mp4',
     thumbnailUrl: '/thumbnails/new-hero.webp',
     description: 'An epic music-driven visual experience that redefines what a hero looks like.',
@@ -29,7 +39,7 @@ export const SHOWREEL_DATA: ExtendedShowreelItem[] = [
   {
     id: 'football-law',
     title: 'FOOTBALL LAW',
-    category: 'When the game meets the gavel.',
+    category: '',
     videoUrl: '/videos/4. Football Law.mp4',
     thumbnailUrl: '/thumbnails/football-law.webp',
     description: 'A hard-hitting commercial blending the intensity of football with the weight of the law.',
@@ -37,19 +47,9 @@ export const SHOWREEL_DATA: ExtendedShowreelItem[] = [
     prompt: 'An office worker riding a black motorcycle through a modern office hallway, papers flying everywhere, high-speed motion blur, cinematic lighting.'
   },
   {
-    id: 'bad-driving',
-    title: 'BAD DRIVING',
-    category: 'Don\'t try this at home.',
-    videoUrl: '/videos/5. Bad Driving Commercial 2 v5 (1).mp4',
-    thumbnailUrl: '/thumbnails/bad-driving.webp',
-    description: 'A comedic commercial that turns terrible driving into unforgettable entertainment.',
-    year: '20M VIEWS',
-    prompt: 'A comedic, over-the-top driving sequence with a panicked passenger, filmed in a retro 80s style with neon lighting and dramatic angles.'
-  },
-  {
     id: 'ugc',
     title: 'UGC',
-    category: 'Unreal people. Unreal stories.',
+    category: '',
     videoUrl: '/videos/6. UGC.mp4',
     thumbnailUrl: '/thumbnails/ugc.webp',
     description: 'A user-generated content campaign that proves authenticity is the ultimate creative weapon.',

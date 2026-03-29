@@ -9,7 +9,6 @@ export const Footer: React.FC = () => {
           <img src="/logo.png" alt="MidnightRender.com" className="h-24 md:h-32 w-auto" />
         </a>
         <h3 className="text-3xl md:text-7xl font-bold uppercase tracking-tighter text-white">
-          AI VIDEOS THAT <br className="md:hidden" /> ACTUALLY GO VIRAL
         </h3>
       </div>
 
