@@ -28,7 +28,7 @@ export const SHOWREEL_DATA: ExtendedShowreelItem[] = [
   },
   {
     id: 'hero-music',
-    title: 'NEW HERO',
+    title: 'WEBSITE HERO VIDEOS',
     category: '',
     videoId: '9d3c10121731be3920317d1db4332570',
     thumbnailUrl: '/thumbnails/new-hero.webp',

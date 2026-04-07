@@ -11,7 +11,7 @@ export const About: React.FC = () => {
                 </h2>
                 <div className="w-12 h-1 bg-white mb-6" />
                 <p className="text-base md:text-lg text-gray-400 mb-6 leading-relaxed max-w-xl font-medium">
-                    Using advanced AI, we craft viral content for brands, artists, and studios that demand both spectacular visuals and rapid delivery.
+                    Using advanced AI, we craft quality content that scales. We focus brands, artists, and studios that demand both spectacular visuals and rapid delivery.
                 </p>
                 <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40">
                     Quality content that scales.

@@ -14,8 +14,7 @@ export const Footer: React.FC = () => {
 
       <div className="flex flex-wrap justify-center gap-8 mb-32">
         <a href="#contact" className="text-xs font-bold uppercase tracking-widest border-b border-white pb-1 hover:opacity-70 transition-opacity focus:outline-none focus:ring-2 focus:ring-white/50 rounded px-1">Contact Us</a>
-        <a href="mailto:hello@midnightrender.com" className="text-xs font-bold uppercase tracking-widest border-b border-white pb-1 hover:opacity-70 transition-opacity focus:outline-none focus:ring-2 focus:ring-white/50 rounded px-1">Email Us</a>
-        <a href="#" className="text-xs font-bold uppercase tracking-widest border-b border-white pb-1 hover:opacity-70 transition-opacity focus:outline-none focus:ring-2 focus:ring-white/50 rounded px-1">Join Our Team</a>
+        <a href="mailto:davissagedas@gmail.com" className="text-xs font-bold uppercase tracking-widest border-b border-white pb-1 hover:opacity-70 transition-opacity focus:outline-none focus:ring-2 focus:ring-white/50 rounded px-1">Email Us</a>
       </div>
 
       <div className="w-full flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-bold text-gray-600 tracking-[0.3em] uppercase">

@@ -33,13 +33,13 @@ export const BookingSection: React.FC = () => {
           Book a call with us!
         </h2>
 
-        <p className="text-sm md:text-base text-gray-500 mb-10 text-center md:text-left font-medium">
+        <p className="text-sm md:text-base text-white mb-10 text-center md:text-left font-bold">
           Or reach us directly at{' '}
           <a
-            href="mailto:hello@midnightrender.com"
+            href="mailto:davissagedas@gmail.com"
             className="text-white underline underline-offset-4 hover:opacity-70 transition-opacity focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
           >
-            hello@midnightrender.com
+            davissagedas@gmail.com
           </a>
         </p>
 
