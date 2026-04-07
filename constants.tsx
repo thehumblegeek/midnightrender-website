@@ -37,24 +37,24 @@ export const SHOWREEL_DATA: ExtendedShowreelItem[] = [
     prompt: 'A massive, sleek futuristic black spaceship flying over a misty, alien desert landscape with glowing floating orbs, epic scale, sci-fi cinematography, 4k.'
   },
   {
-    id: 'football-law',
-    title: 'FOOTBALL LAW',
+    id: 'alpha-teaser',
+    title: 'ALPHA TEASER',
     category: '',
-    videoId: '97cd74733ad7cf361bbd08fa45194641',
-    thumbnailUrl: '/thumbnails/football-law.webp',
-    description: 'A hard-hitting commercial blending the intensity of football with the weight of the law.',
-    year: '15M VIEWS',
-    prompt: 'An office worker riding a black motorcycle through a modern office hallway, papers flying everywhere, high-speed motion blur, cinematic lighting.'
+    videoId: 'dffaeb7e76e714d2a5a0fdd81c33ddd0',
+    thumbnailUrl: '/thumbnails/commercial/Alpha Teaser.webp',
+    description: 'A high-energy teaser that launches a new era of cinematic AI storytelling.',
+    year: '',
+    prompt: 'A dramatic cinematic teaser with fast cuts, intense lighting, and a powerful musical score building to a climactic reveal.'
   },
   {
-    id: 'ugc',
-    title: 'UGC',
+    id: 'bionic-awards',
+    title: 'BIONIC AWARDS OPENER',
     category: '',
-    videoId: 'd80155a66753086b6eecd7c7335ae2e1',
-    thumbnailUrl: '/thumbnails/ugc.webp',
-    description: 'A user-generated content campaign that proves authenticity is the ultimate creative weapon.',
-    year: '50M VIEWS',
-    prompt: 'A montage of diverse people filming themselves with smartphones in everyday locations, warm natural lighting, documentary style, authentic and raw.'
+    videoId: 'ee921e6772a9047fda2f4810daea6553',
+    thumbnailUrl: '/thumbnails/commercial/BIONIC AWARDS OPENER.webp',
+    description: 'A spectacular awards opener blending sci-fi aesthetics with cinematic grandeur.',
+    year: '',
+    prompt: 'A futuristic awards ceremony opener with sweeping camera moves, glowing particle effects, and a monumental sci-fi stage design.'
   }
 ];
 
