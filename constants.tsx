@@ -11,7 +11,7 @@ export const SHOWREEL_DATA: ExtendedShowreelItem[] = [
     title: 'DENNY\'S — CHROMA AWARDS',
     category: '',
     videoId: '879f3b1889a6fffe6b64424b87db217d',
-    thumbnailUrl: '',
+    thumbnailUrl: "/thumbnails/commercial/We've Had It In Us All Along - Chroma Awards - Official Denny's Music Video.webp",
     description: 'A comedic commercial that turns terrible driving into unforgettable entertainment.',
     year: '20M VIEWS',
     prompt: 'A comedic, over-the-top driving sequence with a panicked passenger, filmed in a retro 80s style with neon lighting and dramatic angles.'

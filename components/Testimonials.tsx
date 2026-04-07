@@ -67,14 +67,11 @@ export const TestimonialCarousel: React.FC = () => {
 
     const scroll = (index: number) => {
         if (scrollRef.current) {
-            const cardElement = scrollRef.current.children[index] as HTMLElement;
-            if (cardElement) {
-                scrollRef.current.scrollTo({
-                    left: cardElement.offsetLeft,
-                    behavior: 'smooth',
-                });
-                setActiveIndex(index);
-            }
+            scrollRef.current.scrollTo({
+                left: index * scrollRef.current.offsetWidth,
+                behavior: 'smooth',
+            });
+            setActiveIndex(index);
         }
     };
 
@@ -134,7 +131,7 @@ export const TestimonialCarousel: React.FC = () => {
                 {TESTIMONIALS.map((testimonial, index) => (
                     <div
                         key={index}
-                        className="w-full flex-shrink-0 border-l border-white/10 pl-6 pr-4 py-4 flex flex-col justify-between bg-white/[0.02] rounded-r-lg transition-opacity duration-500"
+                        className="w-full flex-shrink-0 border-l border-white/10 pl-6 pr-4 py-6 flex flex-col justify-between bg-white/[0.02] rounded-r-lg transition-opacity duration-500"
                         style={{
                             opacity: activeIndex === index ? 1 : 0.3,
                         }}
@@ -147,7 +144,7 @@ export const TestimonialCarousel: React.FC = () => {
                             >
                                 ❝
                             </span>
-                            <p className="text-gray-400 italic text-sm md:text-base leading-relaxed mb-6">
+                            <p className="text-gray-400 italic text-xs md:text-sm leading-relaxed mb-6">
                                 "{testimonial.quote}"
                             </p>
                         </div>
@@ -155,7 +152,6 @@ export const TestimonialCarousel: React.FC = () => {
                             <span className="text-white font-bold text-[10px] uppercase tracking-[0.3em] block">
                                 {testimonial.name}
                             </span>
-                            {/* Role and Company subtext removed per user request */}
                         </div>
                     </div>
                 ))}
