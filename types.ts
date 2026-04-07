@@ -3,7 +3,8 @@ export interface ShowreelItem {
   id: string;
   title: string;
   category: string;
-  videoUrl: string;
+  videoId?: string;    // Cloudflare Stream Video ID (preferred)
+  videoUrl?: string;   // Legacy local path / Veo AI generation fallback
   thumbnailUrl: string;
   description: string;
   year: string;

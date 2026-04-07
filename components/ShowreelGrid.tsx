@@ -1,6 +1,8 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import Hls from 'hls.js';
 import { ShowreelItem } from '../types';
+import { STREAM_URL_HD } from './CloudflareVideo';
 
 // Preview loops: each grid video plays only the first 5 seconds on repeat
 const PREVIEW_DURATION = 5;
@@ -18,6 +20,7 @@ const LazyVideo: React.FC<{
 }> = ({ item, isGenerating, onSelect }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const isInViewRef = useRef(false);
@@ -37,7 +40,6 @@ const LazyVideo: React.FC<{
         isInViewRef.current = entry.isIntersecting;
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Resume playback when scrolled back into view
           if (videoRef.current && videoReady) {
             videoRef.current.currentTime = 0;
             videoRef.current.play().catch(() => { });
@@ -57,6 +59,44 @@ const LazyVideo: React.FC<{
 
     return () => observer.disconnect();
   }, [videoReady]);
+
+  // Set up HLS or direct src once the video element is visible
+  useEffect(() => {
+    if (!isVisible || !videoRef.current) return;
+
+    const video = videoRef.current;
+
+    if (item.videoId) {
+      // Cloudflare Stream — load 1080p manifest directly (no ABR warmup blurriness)
+      const src = STREAM_URL_HD(item.videoId);
+
+      if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        // Safari: native HLS
+        video.src = src;
+      } else if (Hls.isSupported()) {
+        // Chrome / Firefox: hls.js with HD manifest — single rendition = instant 1080p
+        if (hlsRef.current) hlsRef.current.destroy();
+        const hls = new Hls({
+          maxBufferLength: 10,
+          maxMaxBufferLength: 20,
+          startLevel: 0, // HD manifest has one level — always 1080p
+        });
+        hls.loadSource(src);
+        hls.attachMedia(video);
+        hlsRef.current = hls;
+      }
+    } else if (item.videoUrl) {
+      // Fallback: direct MP4 (legacy local path or Veo AI-generated URL)
+      video.src = item.videoUrl;
+    }
+
+    return () => {
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
+    };
+  }, [isVisible, item.videoId, item.videoUrl]);
 
   // Start playing once video is ready and in view
   const handleCanPlay = useCallback(() => {
@@ -93,20 +133,16 @@ const LazyVideo: React.FC<{
         />
       )}
 
-      {/* Background Video — preloaded, loops first 5 seconds */}
+      {/* Background Video — lazy-loaded, loops first 5 seconds via Cloudflare Stream HLS */}
       {isVisible && (
         <video
           ref={videoRef}
-          key={item.videoUrl}
           muted
           playsInline
-          preload="auto"
           onCanPlay={handleCanPlay}
           onTimeUpdate={handleTimeUpdate}
           className={`absolute inset-0 w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-[1s] ease-out ${videoReady ? (isGenerating ? 'opacity-30 blur-sm' : 'opacity-80') : 'opacity-0'}`}
-        >
-          <source src={item.videoUrl} type={item.videoUrl.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'} />
-        </video>
+        />
       )}
 
       {/* Generation Overlay */}

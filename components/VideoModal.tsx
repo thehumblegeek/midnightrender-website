@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { ShowreelItem } from '../types';
+import { CloudflareEmbed } from './CloudflareVideo';
 
 interface VideoModalProps {
   item: ShowreelItem | null;
@@ -28,25 +29,36 @@ export const VideoModal: React.FC<VideoModalProps> = ({ item, onClose }) => {
       />
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-6xl aspect-video bg-neutral-900 rounded-lg overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300">
+      <div className="relative w-full max-w-6xl aspect-video bg-neutral-900 rounded-lg overflow-hidden shadow-2xl">
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 z-20 text-white hover:text-gray-400 p-2 mix-blend-difference"
+          className="absolute top-4 right-4 z-20 text-white hover:text-gray-400 p-2 bg-black/50 rounded-full backdrop-blur-sm"
+          aria-label="Close video"
         >
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
-        <video
-          controls
-          autoPlay
-          controlsList="nodownload"
-          onContextMenu={(e) => e.preventDefault()}
-          className="w-full h-full object-cover"
-        >
-          <source src={item.videoUrl} type={item.videoUrl.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'} />
-        </video>
+        {/* Cloudflare Stream iframe embed — native player, works everywhere */}
+        {item.videoId ? (
+          <CloudflareEmbed
+            videoId={item.videoId}
+            autoplay={true}
+            className="w-full h-full"
+          />
+        ) : item.videoUrl ? (
+          // Fallback for Veo AI-generated videos (have URL, not videoId)
+          <video
+            controls
+            autoPlay
+            controlsList="nodownload"
+            onContextMenu={(e) => e.preventDefault()}
+            className="w-full h-full object-cover"
+          >
+            <source src={item.videoUrl} type="video/mp4" />
+          </video>
+        ) : null}
 
         {/* Info Overlay */}
         <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black to-transparent pointer-events-none">

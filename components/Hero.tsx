@@ -1,6 +1,10 @@
 
 import React, { useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { CloudflareVideo } from './CloudflareVideo';
+
+// Hero background video — Cloudflare Stream ID for "Update 1 Show Reel.mp4"
+const HERO_VIDEO_ID = 'd35cf4f1d13419580d45e7031f8c1efe';
 
 export const Hero: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -9,7 +13,7 @@ export const Hero: React.FC = () => {
   const tryPlay = useCallback(() => {
     const video = videoRef.current;
     if (video) {
-      video.muted = true; // ensure muted (required by browser autoplay policy)
+      video.muted = true;
       video.play().catch(() => { /* silently handle if browser still blocks */ });
     }
   }, []);
@@ -23,20 +27,18 @@ export const Hero: React.FC = () => {
       {/* SEO: Hidden h1 for search engines */}
       <h1 className="sr-only">MidnightRender — Cinema Quality AI Video Production</h1>
 
-      {/* Full-screen background video */}
-      <video
+      {/* Full-screen background video via Cloudflare Stream (HLS adaptive bitrate) */}
+      <CloudflareVideo
         ref={videoRef}
+        videoId={HERO_VIDEO_ID}
         autoPlay
         muted
         loop
         playsInline
-        preload="auto"
         poster="/logo.png"
         onCanPlay={tryPlay}
         className="absolute inset-0 w-full h-full object-cover animate-zoom"
-      >
-        <source src="/videos/Update 1 Show Reel.mp4" type="video/mp4" />
-      </video>
+      />
 
       {/* Dark gradient overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/40" />
