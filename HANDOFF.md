@@ -17,10 +17,33 @@ Welcome. This document is the entry point for the new owner/developer taking ove
 
 ## 2. First-Time Setup (Do This First)
 
-### Prerequisites
-- Node.js 20+ (LTS)
-- Git
-- A code editor — recommended: **Google Antigravity IDE** with **Claude Code** (same environment the previous developer used)
+### Prerequisites — Local Software
+
+**Required (minimum to run the project):**
+
+| Software | Why | Install |
+|---|---|---|
+| **Node.js 20+ (LTS)** | Runs Vite dev server and builds | https://nodejs.org |
+| **npm** | Package manager | ships with Node.js |
+| **Git** | Clone the repo, push commits | https://git-scm.com |
+| **A modern browser** | Test locally (Chrome/Edge/Firefox/Safari) | — |
+
+**Recommended (matches the previous developer's setup):**
+
+| Software | Why |
+|---|---|
+| **Google Antigravity IDE** | Same editor environment used to build the site |
+| **Claude Code** (CLI or extension) | Same AI coding assistant — already wired into the repo via `CLAUDE.md` |
+| **GitHub account** with push access | To push commits to `thehumblegeek/midnightrender-website` |
+| **Vercel account** linked to the repo | To view deploy logs and manage production env vars |
+
+**Optional (only for specific tasks):**
+
+| Software | When you'd need it |
+|---|---|
+| **Cloudflare account** with Stream access | Uploading or replacing portfolio videos |
+| **FFmpeg** | Re-encoding videos locally before upload (`@ffmpeg/ffmpeg` is a dev dep but not required for normal dev) |
+| **Image editor** (Photoshop, GIMP, Squoosh) | Creating new `.webp` thumbnails |
 
 ### Steps
 
