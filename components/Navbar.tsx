@@ -1,9 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     let ticking = false;
@@ -27,16 +29,16 @@ export const Navbar: React.FC = () => {
       role="navigation"
       aria-label="Main navigation"
     >
-      <a href="#about" className="text-[11px] uppercase tracking-[0.3em] font-bold text-white/90 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded px-2 py-1">
+      <a href={isHome ? '#about' : '/#about'} className="text-[11px] uppercase tracking-[0.3em] font-bold text-white/90 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded px-2 py-1">
         About Us
       </a>
-      <a href="#work" className="text-[11px] uppercase tracking-[0.3em] font-bold text-white/90 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded px-2 py-1">
+      <a href={isHome ? '#work' : '/#work'} className="text-[11px] uppercase tracking-[0.3em] font-bold text-white/90 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded px-2 py-1">
         Work
       </a>
       <Link to="/works" className="text-[11px] uppercase tracking-[0.3em] font-bold text-white/90 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded px-2 py-1">
         All Works
       </Link>
-      <a href="#contact" className="text-[11px] uppercase tracking-[0.3em] font-bold text-white/90 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded px-2 py-1">
+      <a href={isHome ? '#contact' : '/#contact'} className="text-[11px] uppercase tracking-[0.3em] font-bold text-white/90 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded px-2 py-1">
         Contact Us
       </a>
     </nav>
