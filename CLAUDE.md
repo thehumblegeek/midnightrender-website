@@ -2,11 +2,13 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> **New developer?** Read [`HANDOFF.md`](./HANDOFF.md) first for setup, accounts, and the high-level orientation. This file is the architecture deep-dive Claude Code will lean on while editing the codebase.
+
 ---
 
 ## Project Overview
 
-**MidnightRender** is a cinematic AI video production studio portfolio website for a freelance AI video creator (Sage). It serves commercial and narrative AI-generated video content.
+**MidnightRender** is a cinematic AI video production studio portfolio website. It showcases commercial and narrative AI-generated video content for a freelance AI video creator.
 
 - **Live URL:** `https://midnightrender.com`
 - **Hosting:** Vercel — auto-deploys on push to `main`
@@ -49,28 +51,34 @@ Two routes defined in `App.tsx`:
 
 ### Data / Content
 
-- `constants.tsx` — `SHOWREEL_DATA` array: 5 homepage showreel items. Each has `id`, `title`, `category`, `videoUrl` (or `videoId` for Cloudflare), `thumbnailUrl`, `description`, `year`, `prompt`.
+- `constants.tsx` — `SHOWREEL_DATA` array: 5 homepage showreel items. Each has `id`, `title`, `category`, `videoId` (Cloudflare Stream), `thumbnailUrl`, `description`, `year`, `prompt`.
 - `AllWorks.tsx` — Two hardcoded arrays (`COMMERCIAL_VIDEOS`, `NARRATIVE_VIDEOS`) with 25 total items, defined in the component file itself.
 - `types.ts` — `ShowreelItem` interface.
 
 ### Video Handling
 
+All portfolio videos are hosted on **Cloudflare Stream** and referenced by `videoId`. There are no local video files in production — `public/videos/commercial/` and `public/videos/narrative/` are gitignored.
+
 `ShowreelGrid.tsx` contains a `LazyVideo` sub-component that:
 - Uses `IntersectionObserver` to load/play only when scrolled into view
 - Plays a 5-second preview loop (`PREVIEW_DURATION = 5`) then pauses
-- Supports two modes: `videoId` (Cloudflare Stream HLS) or `videoUrl` (local/fallback)
+- Supports two modes: `videoId` (Cloudflare Stream HLS) or `videoUrl` (local fallback, unused in production)
 - Uses `hls.js` for Chrome/Firefox, native HLS for Safari
 
 `CloudflareVideo.tsx` is the shared Cloudflare Stream player component handling HLS + Safari fallback.
 
-Cloudflare Stream video URLs follow this pattern:
+Cloudflare Stream HLS URLs follow this pattern:
 ```
 https://customer-{hash}.cloudflarestream.com/{videoId}/manifest/video.m3u8
 ```
 
+For 1080p immediate playback (bypassing ABR warmup), append `?clientBandwidthHint=10`.
+
+The full Cloudflare video ID tracker lives in [`CLOUDFLARE_STREAM_MIGRATION.md`](./CLOUDFLARE_STREAM_MIGRATION.md).
+
 ### AI Integration
 
-`services/videoService.ts` handles Veo AI video generation via the Gemini SDK. `App.tsx` references `window.aistudio` for API key selection in the AI Studio environment — this is safe to ignore in normal browser usage.
+`services/videoService.ts` handles Veo AI video generation via the Gemini SDK. `App.tsx` references `window.aistudio` for API key selection in the Google AI Studio environment — this is safe to ignore in normal browser usage (it's a no-op outside AI Studio).
 
 ---
 
@@ -91,39 +99,46 @@ Full design reference in [`DESIGN.md`](./DESIGN.md).
 
 ## Environment Variables
 
-Located in `.env` at project root (not committed):
+A template is provided in [`.env.example`](./.env.example). Copy to `.env` and fill in values:
 
-```
-GEMINI_API_KEY=your_key_here
+```bash
+cp .env.example .env
 ```
 
-Injected via `vite.config.ts` as both `process.env.API_KEY` and `process.env.GEMINI_API_KEY`.
+| Variable | Required? | Purpose |
+|---|---|---|
+| `GEMINI_API_KEY` | Optional | Powers `services/videoService.ts` AI video generation. Site runs fine without it. |
 
-After Cloudflare Stream setup, also add:
-```
-CLOUDFLARE_ACCOUNT_ID=your_account_id
-CLOUDFLARE_STREAM_TOKEN=your_api_token
-```
+Vite injects this via `vite.config.ts` as both `process.env.API_KEY` and `process.env.GEMINI_API_KEY`.
+
+**No Cloudflare credentials are needed at runtime** — videos are referenced by ID and served publicly from Cloudflare Stream. Cloudflare account credentials are only needed if you want to upload/manage videos directly via the dashboard or API. If Claude needs them for a specific task, ask the developer to provide them out-of-band.
 
 ---
 
-## Pending Work: Cloudflare Stream Migration
+## Common Tasks
 
-All ~26 unique video files (~3.76 GB) need to migrate from local `/public/videos/` to Cloudflare Stream. Full plan in [`CLOUDFLARE_STREAM_MIGRATION.md`](./CLOUDFLARE_STREAM_MIGRATION.md).
+### Adding a new video
+1. Upload to Cloudflare Stream dashboard
+2. Copy the 32-char video ID
+3. Add to `SHOWREEL_DATA` (homepage) or `COMMERCIAL_VIDEOS` / `NARRATIVE_VIDEOS` in `AllWorks.tsx`
+4. Drop a `.webp` thumbnail in `public/thumbnails/{commercial,narrative}/`
 
-**User must first:** Upload videos to Cloudflare Stream dashboard and record the Video IDs in the tracker table in `CLOUDFLARE_STREAM_MIGRATION.md`.
+### Updating copy
+- Hero text → `components/Hero.tsx`
+- About section → `components/About.tsx`
+- Booking CTA → `components/BookingSection.tsx`
+- Testimonials → `components/Testimonials.tsx`
+- Footer (email, links) → `components/Footer.tsx`
 
-**Code changes needed once IDs are provided:**
-- Update `constants.tsx` — swap `videoUrl` for `videoId` in `SHOWREEL_DATA`
-- Update `AllWorks.tsx` — all 25 `videoUrl` strings
-- Update `Hero.tsx` — swap `<source src="...">` for Cloudflare stream URL
-- Remove `/public/videos/` folder after migration
+### Deploying
+Push to `main`. Vercel handles the rest. There is no manual deploy step.
 
 ---
 
 ## Known Gotchas
 
-- **Tailwind via CDN** — loaded in `index.html` via `<script src="https://cdn.tailwindcss.com">`. Adds ~350KB with no purging. Custom animations (`subtle-zoom`, `marquee`) are also defined inline in `index.html`.
-- **`.mov` files** — Two portfolio videos are in MOV format. `AllWorks.tsx` handles with `type={url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}`. Cloudflare Stream will transcode these to HLS.
-- **Large video files** — `Monster Movie.mp4` is 563 MB; multiple files are 300+ MB. Primary driver for Cloudflare migration.
-- **Git binary diffs** — Some video files may show as modified in git due to binary size changes, not actual code changes.
+- **Tailwind via CDN** — loaded in `index.html` via `<script src="https://cdn.tailwindcss.com">`. Adds ~350KB with no purging. There is no `tailwind.config.js`. Custom animations (`subtle-zoom`, `marquee`) are defined inline in `index.html`.
+- **No tests, no linter** — `npm test` and `npm run lint` don't exist. Don't suggest running them.
+- **`.mov` references in old code/commits** — Two original portfolio videos were `.mov`. Cloudflare Stream transcoded everything to HLS, so this no longer matters at runtime.
+- **Bundle size warning during build** — `hls.js` + `@google/genai` push past Vite's default warning threshold. Expected, not a problem.
+- **`window.aistudio` in `App.tsx`** — only meaningful inside Google AI Studio's hosted environment. Ignore it in normal browser usage.
