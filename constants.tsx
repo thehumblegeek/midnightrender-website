@@ -27,12 +27,12 @@ export const SHOWREEL_DATA: ExtendedShowreelItem[] = [
     prompt: 'A cinematic surreal video of a sloth wearing a hoodie participating in a rap battle in a dimly lit urban club, neon lights, highly detailed, slow motion.'
   },
   {
-    id: 'hero-music',
-    title: 'WEBSITE HERO VIDEOS',
+    id: 'teleios-hero',
+    title: 'TELEIOS WEBSITE HERO',
     category: '',
-    videoId: '9d3c10121731be3920317d1db4332570',
-    thumbnailUrl: '/thumbnails/new-hero.webp',
-    description: 'An epic music-driven visual experience that redefines what a hero looks like.',
+    videoId: '33856860b6552ed4d7d3935c9ca0c6c7',
+    thumbnailUrl: '/thumbnails/commercial/Teleios Website Hero.webp',
+    description: 'A cinematic website hero crafted for Teleios — bold, atmospheric, and built to captivate.',
     year: '5M VIEWS',
     prompt: 'A massive, sleek futuristic black spaceship flying over a misty, alien desert landscape with glowing floating orbs, epic scale, sci-fi cinematography, 4k.'
   },
