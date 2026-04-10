@@ -187,18 +187,18 @@ export const LogoMarquee: React.FC = () => {
                 <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
                 <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
-                <div className="animate-marquee flex items-center gap-8 whitespace-nowrap">
+                <div className="animate-marquee flex items-center gap-10 whitespace-nowrap">
                     {/* First set */}
                     {LOGOS.map((logo, i) => (
                         <div
                             key={`pill-a-${i}`}
-                            className="flex-shrink-0 border border-white/5 px-6 py-3 rounded-xl flex items-center justify-center hover:border-white/10 transition-colors"
-                            style={{ minWidth: '150px' }}
+                            className="flex-shrink-0 border border-white/5 px-8 py-4 rounded-xl flex items-center justify-center hover:border-white/10 transition-colors"
+                            style={{ minWidth: '188px' }}
                         >
                             <img
                                 src={logo.file}
                                 alt={logo.name}
-                                className="h-8 md:h-10 w-auto object-contain transition-all duration-500 grayscale opacity-50 hover:grayscale-0 hover:opacity-100"
+                                className="h-10 md:h-[50px] w-auto object-contain transition-all duration-500 grayscale opacity-50 hover:grayscale-0 hover:opacity-100"
                                 style={{ mixBlendMode: 'lighten' }}
                                 loading="lazy"
                             />
@@ -208,13 +208,13 @@ export const LogoMarquee: React.FC = () => {
                     {LOGOS.map((logo, i) => (
                         <div
                             key={`pill-b-${i}`}
-                            className="flex-shrink-0 border border-white/5 px-6 py-3 rounded-xl flex items-center justify-center hover:border-white/10 transition-colors"
-                            style={{ minWidth: '150px' }}
+                            className="flex-shrink-0 border border-white/5 px-8 py-4 rounded-xl flex items-center justify-center hover:border-white/10 transition-colors"
+                            style={{ minWidth: '188px' }}
                         >
                             <img
                                 src={logo.file}
                                 alt={logo.name}
-                                className="h-8 md:h-10 w-auto object-contain transition-all duration-500 grayscale opacity-50 hover:grayscale-0 hover:opacity-100"
+                                className="h-10 md:h-[50px] w-auto object-contain transition-all duration-500 grayscale opacity-50 hover:grayscale-0 hover:opacity-100"
                                 style={{ mixBlendMode: 'lighten' }}
                                 loading="lazy"
                             />
