@@ -31,6 +31,7 @@ const COMMERCIAL_VIDEOS: VideoItem[] = [
   { id: 'c10', title: 'NoScrubs Laundry',                       category: 'Commercial', videoId: '08a8f1d567a7512904bfd3f1871611dc', thumbnailUrl: '/thumbnails/commercial/NoScrubs Laundry.webp' },
   { id: 'c11', title: 'Skunks',                                 category: 'Commercial', videoId: 'cbf254596f9046bebd4d2a66ad475b3e', thumbnailUrl: '/thumbnails/commercial/Skunks 1a.webp' },
   { id: 'c12', title: 'Teleios Website Hero',                   category: 'Commercial', videoId: '33856860b6552ed4d7d3935c9ca0c6c7', thumbnailUrl: '/thumbnails/commercial/Teleios Website Hero.webp' },
+  { id: 'c19', title: 'Froya: You Are Worthy',                category: 'Commercial', videoId: '807af4802981df21418ccf66316ea333', thumbnailUrl: '/thumbnails/commercial/Froya_Ad_Landscape.webp' },
   { id: 'c13', title: 'Trading App Demo',                       category: 'Commercial', videoId: 'd3b8c4fa03d8b3e8a3f8e21577adbd3f', thumbnailUrl: '/thumbnails/commercial/Trading App Demo.webp' },
   { id: 'c18', title: 'PadSplit: A Better Way to Live',         category: 'Commercial', videoId: '4e3d321add8b2c496a2ef5b05d0337b7', thumbnailUrl: '/thumbnails/commercial/PadSplit A Better Way to Live.webp' },
 ];
@@ -45,7 +46,6 @@ const NARRATIVE_VIDEOS: VideoItem[] = [
   { id: 'n7',  title: 'Monster Movie',               category: 'Narrative', videoId: '0f47ba73b39222e6547083c0611178bf', thumbnailUrl: '/thumbnails/narrative/Monster Movie.webp' },
   { id: 'n8',  title: 'Randomville',                 category: 'Narrative', videoId: 'b7b8dd2a38f5a54b26f4e4f82f5c8185', thumbnailUrl: '/thumbnails/narrative/Randomville Final 24fps.webp' },
   { id: 'n9',  title: 'Sage Footballer',             category: 'Narrative', videoId: '64d40a263c638c998e516fe672021a6e', thumbnailUrl: '/thumbnails/narrative/Sage Footballer.webp' },
-  { id: 'n10', title: 'Sid',                         category: 'Narrative', videoId: '53ec0afcf87b7dc25b58e8dbd4573ef6', thumbnailUrl: '/thumbnails/narrative/Sid.webp' },
   { id: 'n11', title: 'Surviving AI',                category: 'Narrative', videoId: 'a82e887e4799bf1cb1b280da7334679d', thumbnailUrl: '/thumbnails/narrative/Surviving AI snippet.webp' },
   { id: 'n12', title: 'Werewolf',                    category: 'Narrative', videoId: '8a34cb1dbd3863163145e0b80041df12', thumbnailUrl: '/thumbnails/narrative/Werewolf.webp' },
 ];
