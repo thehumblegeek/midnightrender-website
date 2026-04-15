@@ -62,11 +62,15 @@ const WorksVideoModal: React.FC<{ video: VideoItem; onClose: () => void }> = ({ 
     if (!el) return;
     const src = STREAM_URL_HD(video.videoId);
     let hls: Hls | null = null;
+    const savedVolume = parseFloat(localStorage.getItem('mr_volume') ?? '0.7');
+
     const playWithSound = () => {
       el.muted = false;
-      el.volume = 1;
+      el.volume = savedVolume;
       el.play().catch(() => { el.muted = true; el.play().catch(() => {}); });
     };
+    const saveVolume = () => { if (!el.muted) localStorage.setItem('mr_volume', String(el.volume)); };
+
     if (el.canPlayType('application/vnd.apple.mpegurl')) {
       el.src = src;
       el.addEventListener('loadedmetadata', playWithSound, { once: true });
@@ -76,9 +80,10 @@ const WorksVideoModal: React.FC<{ video: VideoItem; onClose: () => void }> = ({ 
       hls.attachMedia(el);
       hls.on(Hls.Events.MANIFEST_PARSED, playWithSound);
     }
+    el.addEventListener('volumechange', saveVolume);
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
-    return () => { if (hls) hls.destroy(); window.removeEventListener('keydown', onKey); };
+    return () => { if (hls) hls.destroy(); el.removeEventListener('volumechange', saveVolume); window.removeEventListener('keydown', onKey); };
   }, [video.videoId, onClose]);
 
   return (

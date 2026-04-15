@@ -19,14 +19,19 @@ const ModalVideo: React.FC<{ videoId: string }> = ({ videoId }) => {
     const src = STREAM_URL_HD(videoId);
     let hls: Hls | null = null;
 
+    const savedVolume = parseFloat(localStorage.getItem('mr_volume') ?? '0.7');
+
     const playWithSound = () => {
       video.muted = false;
-      video.volume = 1;
+      video.volume = savedVolume;
       video.play().catch(() => {
-        // If unmuted autoplay is blocked, fall back to muted play
         video.muted = true;
         video.play().catch(() => {});
       });
+    };
+
+    const saveVolume = () => {
+      if (!video.muted) localStorage.setItem('mr_volume', String(video.volume));
     };
 
     if (video.canPlayType('application/vnd.apple.mpegurl')) {
@@ -39,8 +44,11 @@ const ModalVideo: React.FC<{ videoId: string }> = ({ videoId }) => {
       hls.on(Hls.Events.MANIFEST_PARSED, playWithSound);
     }
 
+    video.addEventListener('volumechange', saveVolume);
+
     return () => {
       if (hls) hls.destroy();
+      video.removeEventListener('volumechange', saveVolume);
     };
   }, [videoId]);
 
