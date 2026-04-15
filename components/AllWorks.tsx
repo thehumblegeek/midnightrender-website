@@ -14,15 +14,15 @@ interface VideoItem {
 }
 
 const COMMERCIAL_VIDEOS: VideoItem[] = [
-  { id: 'c14', title: 'Fizz Soda: Not Feeling Like Yourself?',  category: 'Commercial', videoId: '46de4c91ab7774cba031e7ee354c1593', thumbnailUrl: '/thumbnails/commercial/Fizz Soda Spec Ad - Not Feeling Like Yourself.webp' },
+  { id: 'c14', title: 'Fizz Soda: Not Feeling Like Yourself?',  category: 'Commercial', videoId: '46de4c91ab7774cba031e7ee354c1593', thumbnailUrl: '/thumbnails/commercial/Fizz Soda Not Feeling Like Yourself.webp' },
   { id: 'c1',  title: "Denny's — Chroma Awards",           category: 'Commercial', videoId: '879f3b1889a6fffe6b64424b87db217d', thumbnailUrl: "/thumbnails/commercial/We've Had It In Us All Along - Chroma Awards - Official Denny's Music Video.webp" },
   { id: 'c2',  title: 'Atombit Minisite',                       category: 'Commercial', videoId: '669327b049cc82804a8d68a6467cfc16', thumbnailUrl: '/thumbnails/commercial/Atombit Minisite v2 (with dialogue).webp' },
   { id: 'c3',  title: 'Atombit Keynote',                        category: 'Commercial', videoId: '07d35ef35bde696e2c086474718f7dc0', thumbnailUrl: '/thumbnails/commercial/Atombit Keynote 1 Compilation (1).webp' },
   { id: 'c4',  title: 'Alpha Teaser',                           category: 'Commercial', videoId: 'dffaeb7e76e714d2a5a0fdd81c33ddd0', thumbnailUrl: '/thumbnails/commercial/Alpha Teaser.webp' },
-  { id: 'c15', title: 'Cyclone: April Fools Day Spec Ad',       category: 'Commercial', videoId: 'bbcddb197428f16434c241f8f50a2877', thumbnailUrl: '/thumbnails/commercial/Cyclone.webp' },
+  { id: 'c15', title: 'Cyclone: April Fools Day Spec Ad',       category: 'Commercial', videoId: 'bbcddb197428f16434c241f8f50a2877', thumbnailUrl: '/thumbnails/commercial/Cyclone April Fools Day Spec Ad.webp' },
   { id: 'c5',  title: 'Bionic Awards Opener',                   category: 'Commercial', videoId: 'ee921e6772a9047fda2f4810daea6553', thumbnailUrl: '/thumbnails/commercial/BIONIC AWARDS OPENER.webp' },
-  { id: 'c16', title: 'Alpha: Official Book Trailer',           category: 'Commercial', videoId: '02c4762504f771e476bd3cd8c84b78be', thumbnailUrl: '/thumbnails/commercial/Alpha Trailer Remake 4K Upscale.webp' },
-  { id: 'c17', title: 'AlterMe Brand Video',                    category: 'Commercial', videoId: '474fec8e418f13380db20375b5fbe87a', thumbnailUrl: '/thumbnails/commercial/ALTERME ROUGH CUT V2 (2)_Precise_Starlight_2_5.webp' },
+  { id: 'c16', title: 'Alpha: Official Book Trailer',           category: 'Commercial', videoId: '02c4762504f771e476bd3cd8c84b78be', thumbnailUrl: '/thumbnails/commercial/Alpha Official Book Trailer.webp' },
+  { id: 'c17', title: 'AlterMe Brand Video',                    category: 'Commercial', videoId: '474fec8e418f13380db20375b5fbe87a', thumbnailUrl: '/thumbnails/commercial/AlterMe Brand Video.webp' },
   { id: 'c6',  title: 'Buckley Law',                            category: 'Commercial', videoId: '8b49d670b44204b8ab9b7b7f1f7bac79', thumbnailUrl: '/thumbnails/commercial/Buckley Law Commercial (Broadcast Ready).webp' },
   { id: 'c7',  title: 'Dead Clean',                             category: 'Commercial', videoId: '7294005979f5795d96e6028a89a08dec', thumbnailUrl: '/thumbnails/commercial/Dead Clean.webp' },
   { id: 'c8',  title: 'Liquor Brand Spec Ad',                   category: 'Commercial', videoId: '150d3e6299f71e33ae547420dd2ec1c3', thumbnailUrl: '/thumbnails/commercial/Field to Flasks Demo Ad.webp' },
@@ -31,7 +31,7 @@ const COMMERCIAL_VIDEOS: VideoItem[] = [
   { id: 'c11', title: 'Skunks',                                 category: 'Commercial', videoId: 'cbf254596f9046bebd4d2a66ad475b3e', thumbnailUrl: '/thumbnails/commercial/Skunks 1a.webp' },
   { id: 'c12', title: 'Teleios Website Hero',                   category: 'Commercial', videoId: '33856860b6552ed4d7d3935c9ca0c6c7', thumbnailUrl: '/thumbnails/commercial/Teleios Website Hero.webp' },
   { id: 'c13', title: 'Trading App Demo',                       category: 'Commercial', videoId: 'd3b8c4fa03d8b3e8a3f8e21577adbd3f', thumbnailUrl: '/thumbnails/commercial/Trading App Demo.webp' },
-  { id: 'c18', title: 'PadSplit: A Better Way to Live',         category: 'Commercial', videoId: '4e3d321add8b2c496a2ef5b05d0337b7', thumbnailUrl: '/thumbnails/commercial/PadSplit 2 V7 - Aug 27th (1)_Precise_Starlight_2_5.webp' },
+  { id: 'c18', title: 'PadSplit: A Better Way to Live',         category: 'Commercial', videoId: '4e3d321add8b2c496a2ef5b05d0337b7', thumbnailUrl: '/thumbnails/commercial/PadSplit A Better Way to Live.webp' },
 ];
 
 const NARRATIVE_VIDEOS: VideoItem[] = [
