@@ -26,7 +26,7 @@ export const STREAM_URL_HD = (videoId: string) =>
   `https://videodelivery.net/${videoId}/manifest/video.m3u8?clientBandwidthHint=10`;
 
 export const IFRAME_URL = (videoId: string, autoplay = true) =>
-  `https://iframe.videodelivery.net/${videoId}?autoplay=${autoplay}&muted=false&loop=false&controls=true`;
+  `https://iframe.videodelivery.net/${videoId}?autoplay=${autoplay}&muted=false&loop=false&controls=true&preload=auto`;
 
 /**
  * CloudflareVideo — HLS background video for hero + showreel grid.
@@ -112,7 +112,7 @@ export const CloudflareEmbed: React.FC<{
     src={IFRAME_URL(videoId, autoplay)}
     className={className}
     style={{ border: 'none' }}
-    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
     allowFullScreen
   />
 );

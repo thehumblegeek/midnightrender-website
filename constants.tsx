@@ -7,6 +7,16 @@ export interface ExtendedShowreelItem extends ShowreelItem {
 
 export const SHOWREEL_DATA: ExtendedShowreelItem[] = [
   {
+    id: 'fizz-soda',
+    title: 'FIZZ SODA: NOT FEELING LIKE YOURSELF?',
+    category: '',
+    videoId: '46de4c91ab7774cba031e7ee354c1593',
+    thumbnailUrl: '/thumbnails/commercial/Fizz Soda Not Feeling Like Yourself.webp',
+    description: 'A bold spec ad for Fizz Soda that blends surreal visuals with sharp brand storytelling.',
+    year: '',
+    prompt: 'A surreal, vibrant commercial with bold color grading and unexpected visual twists that capture a brand transformation moment.'
+  },
+  {
     id: 'bad-driving',
     title: 'DENNY\'S — CHROMA AWARDS',
     category: '',
