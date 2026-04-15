@@ -1,12 +1,59 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import Hls from 'hls.js';
 import { ShowreelItem } from '../types';
-import { CloudflareEmbed } from './CloudflareVideo';
+import { STREAM_URL_HD } from './CloudflareVideo';
 
 interface VideoModalProps {
   item: ShowreelItem | null;
   onClose: () => void;
 }
+
+const ModalVideo: React.FC<{ videoId: string }> = ({ videoId }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const src = STREAM_URL_HD(videoId);
+    let hls: Hls | null = null;
+
+    const playWithSound = () => {
+      video.muted = false;
+      video.volume = 1;
+      video.play().catch(() => {
+        // If unmuted autoplay is blocked, fall back to muted play
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    };
+
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+      video.addEventListener('loadedmetadata', playWithSound, { once: true });
+    } else if (Hls.isSupported()) {
+      hls = new Hls({ maxBufferLength: 15, startLevel: 0 });
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, playWithSound);
+    }
+
+    return () => {
+      if (hls) hls.destroy();
+    };
+  }, [videoId]);
+
+  return (
+    <video
+      ref={videoRef}
+      controls
+      playsInline
+      className="w-full h-full"
+      onContextMenu={(e) => e.preventDefault()}
+    />
+  );
+};
 
 export const VideoModal: React.FC<VideoModalProps> = ({ item, onClose }) => {
 
@@ -17,6 +64,12 @@ export const VideoModal: React.FC<VideoModalProps> = ({ item, onClose }) => {
       document.body.style.overflow = 'auto';
     }
   }, [item]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
 
   if (!item) return null;
 
@@ -40,15 +93,9 @@ export const VideoModal: React.FC<VideoModalProps> = ({ item, onClose }) => {
           </svg>
         </button>
 
-        {/* Cloudflare Stream iframe embed — native player, works everywhere */}
         {item.videoId ? (
-          <CloudflareEmbed
-            videoId={item.videoId}
-            autoplay={true}
-            className="w-full h-full"
-          />
+          <ModalVideo videoId={item.videoId} />
         ) : item.videoUrl ? (
-          // Fallback for Veo AI-generated videos (have URL, not videoId)
           <video
             controls
             autoPlay

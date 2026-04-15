@@ -1,9 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
-import { CloudflareEmbed } from './CloudflareVideo';
+import Hls from 'hls.js';
+import { STREAM_URL_HD } from './CloudflareVideo';
 
 interface VideoItem {
   id: string;
@@ -52,6 +53,62 @@ const NARRATIVE_VIDEOS: VideoItem[] = [
 const ALL_VIDEOS = [...COMMERCIAL_VIDEOS, ...NARRATIVE_VIDEOS];
 
 type FilterType = 'All' | 'Commercial' | 'Narrative';
+
+const WorksVideoModal: React.FC<{ video: VideoItem; onClose: () => void }> = ({ video, onClose }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const src = STREAM_URL_HD(video.videoId);
+    let hls: Hls | null = null;
+    const playWithSound = () => {
+      el.muted = false;
+      el.volume = 1;
+      el.play().catch(() => { el.muted = true; el.play().catch(() => {}); });
+    };
+    if (el.canPlayType('application/vnd.apple.mpegurl')) {
+      el.src = src;
+      el.addEventListener('loadedmetadata', playWithSound, { once: true });
+    } else if (Hls.isSupported()) {
+      hls = new Hls({ maxBufferLength: 15, startLevel: 0 });
+      hls.loadSource(src);
+      hls.attachMedia(el);
+      hls.on(Hls.Events.MANIFEST_PARSED, playWithSound);
+    }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => { if (hls) hls.destroy(); window.removeEventListener('keydown', onKey); };
+  }, [video.videoId, onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-8"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-6 right-6 text-white/60 hover:text-white text-3xl font-light transition-colors z-50 bg-black/40 p-2 rounded-full backdrop-blur-sm"
+        aria-label="Close video"
+      >
+        ✕
+      </button>
+      <div className="w-full max-w-5xl aspect-video" onClick={(e) => e.stopPropagation()}>
+        <video
+          ref={videoRef}
+          controls
+          playsInline
+          className="w-full h-full rounded-lg"
+          onContextMenu={(e) => e.preventDefault()}
+        />
+        <div className="mt-4">
+          <h2 className="text-xl font-bold tracking-tight uppercase">{video.title}</h2>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">{video.category}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const VideoCard: React.FC<{ video: VideoItem; onClick: () => void }> = ({ video, onClick }) => {
   return (
@@ -156,34 +213,12 @@ export const AllWorks: React.FC = () => {
 
       <Footer />
 
-      {/* Video Modal — Cloudflare Stream iframe embed */}
+      {/* Video Modal — HLS native video for unmuted autoplay */}
       {playingVideo && (
-        <div
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-8"
-          onClick={() => setPlayingVideo(null)}
-        >
-          <button
-            onClick={() => setPlayingVideo(null)}
-            className="absolute top-6 right-6 text-white/60 hover:text-white text-3xl font-light transition-colors z-50 bg-black/40 p-2 rounded-full backdrop-blur-sm"
-            aria-label="Close video"
-          >
-            ✕
-          </button>
-          <div
-            className="w-full max-w-5xl aspect-video"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <CloudflareEmbed
-              videoId={playingVideo.videoId}
-              autoplay={true}
-              className="w-full h-full rounded-lg"
-            />
-            <div className="mt-4">
-              <h2 className="text-xl font-bold tracking-tight uppercase">{playingVideo.title}</h2>
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">{playingVideo.category}</span>
-            </div>
-          </div>
-        </div>
+        <WorksVideoModal
+          video={playingVideo}
+          onClose={() => setPlayingVideo(null)}
+        />
       )}
     </div>
   );
