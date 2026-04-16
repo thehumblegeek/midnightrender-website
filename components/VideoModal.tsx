@@ -44,11 +44,15 @@ const ModalVideo: React.FC<{ videoId: string }> = ({ videoId }) => {
       hls.on(Hls.Events.MANIFEST_PARSED, playWithSound);
     }
 
+    const onEnded = () => { video.currentTime = 0; };
+
     video.addEventListener('volumechange', saveVolume);
+    video.addEventListener('ended', onEnded);
 
     return () => {
       if (hls) hls.destroy();
       video.removeEventListener('volumechange', saveVolume);
+      video.removeEventListener('ended', onEnded);
     };
   }, [videoId]);
 

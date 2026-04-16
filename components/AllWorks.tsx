@@ -80,10 +80,13 @@ const WorksVideoModal: React.FC<{ video: VideoItem; onClose: () => void }> = ({ 
       hls.attachMedia(el);
       hls.on(Hls.Events.MANIFEST_PARSED, playWithSound);
     }
+    const onEnded = () => { el.currentTime = 0; };
+
     el.addEventListener('volumechange', saveVolume);
+    el.addEventListener('ended', onEnded);
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
-    return () => { if (hls) hls.destroy(); el.removeEventListener('volumechange', saveVolume); window.removeEventListener('keydown', onKey); };
+    return () => { if (hls) hls.destroy(); el.removeEventListener('volumechange', saveVolume); el.removeEventListener('ended', onEnded); window.removeEventListener('keydown', onKey); };
   }, [video.videoId, onClose]);
 
   return (
