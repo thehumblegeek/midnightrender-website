@@ -34,21 +34,36 @@ export const BookingSection: React.FC = () => {
         </h2>
 
         <p className="text-sm md:text-base text-white mb-10 text-center md:text-left font-bold">
-          Or reach us directly at{' '}
+          You can also reach us directly at{' '}
           <a
             href="mailto:davissagedas@gmail.com"
             className="text-white underline underline-offset-4 hover:opacity-70 transition-opacity focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
           >
             davissagedas@gmail.com
           </a>
+          {' '}for Sage or{' '}
+          <a
+            href="mailto:angelsotofilm@gmail.com"
+            className="text-white underline underline-offset-4 hover:opacity-70 transition-opacity focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
+          >
+            angelsotofilm@gmail.com
+          </a>
+          {' '}for Angel. We look forward to working with you!
         </p>
 
-        {/* Calendly inline widget */}
-        <div
-          className="calendly-inline-widget rounded-xl overflow-hidden shadow-2xl shadow-white/5 border border-white/5"
-          data-url="https://calendly.com/portal404house"
-          style={{ minWidth: '320px', height: '700px' }}
-        />
+        {/* Calendly inline widgets */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div
+            className="calendly-inline-widget rounded-xl overflow-hidden shadow-2xl shadow-white/5 border border-white/5"
+            data-url="https://calendly.com/portal404house"
+            style={{ minWidth: '320px', height: '700px' }}
+          />
+          <div
+            className="calendly-inline-widget rounded-xl overflow-hidden shadow-2xl shadow-white/5 border border-white/5"
+            data-url="https://calendly.com/angelsoto"
+            style={{ minWidth: '320px', height: '700px' }}
+          />
+        </div>
       </div>
     </section>
   );

@@ -15,6 +15,7 @@ interface VideoItem {
 }
 
 const COMMERCIAL_VIDEOS: VideoItem[] = [
+  { id: 'c20', title: 'Smiles',                                  category: 'Commercial', videoId: '9862f57ea580d5fff34848be7d6ed6af', thumbnailUrl: 'https://videodelivery.net/9862f57ea580d5fff34848be7d6ed6af/thumbnails/thumbnail.jpg?time=0s' },
   { id: 'c14', title: 'Fizz Soda: Not Feeling Like Yourself?',  category: 'Commercial', videoId: '46de4c91ab7774cba031e7ee354c1593', thumbnailUrl: '/thumbnails/commercial/Fizz Soda Not Feeling Like Yourself.webp' },
   { id: 'c1',  title: "Denny's — Chroma Awards",           category: 'Commercial', videoId: '879f3b1889a6fffe6b64424b87db217d', thumbnailUrl: "/thumbnails/commercial/We've Had It In Us All Along - Chroma Awards - Official Denny's Music Video.webp" },
   { id: 'c2',  title: 'Atombit Minisite',                       category: 'Commercial', videoId: '669327b049cc82804a8d68a6467cfc16', thumbnailUrl: '/thumbnails/commercial/Atombit Minisite v2 (with dialogue).webp' },
@@ -34,6 +35,11 @@ const COMMERCIAL_VIDEOS: VideoItem[] = [
   { id: 'c19', title: 'Froya: You Are Worthy',                category: 'Commercial', videoId: '807af4802981df21418ccf66316ea333', thumbnailUrl: '/thumbnails/commercial/Froya_Ad_Landscape.webp' },
   { id: 'c13', title: 'Trading App Demo',                       category: 'Commercial', videoId: 'd3b8c4fa03d8b3e8a3f8e21577adbd3f', thumbnailUrl: '/thumbnails/commercial/Trading App Demo.webp' },
   { id: 'c18', title: 'PadSplit: A Better Way to Live',         category: 'Commercial', videoId: '4e3d321add8b2c496a2ef5b05d0337b7', thumbnailUrl: '/thumbnails/commercial/PadSplit A Better Way to Live.webp' },
+  { id: 'c21', title: 'Blum & Co App Trailer',                 category: 'Commercial', videoId: '24f3f950e05c1bb632d9a3ccd2624374', thumbnailUrl: 'https://videodelivery.net/24f3f950e05c1bb632d9a3ccd2624374/thumbnails/thumbnail.jpg?time=0s' },
+  { id: 'c22', title: 'Untold: Immortal Blades Saga',          category: 'Commercial', videoId: '120f53aff1a8a2e29a388c79e01447b4', thumbnailUrl: 'https://videodelivery.net/120f53aff1a8a2e29a388c79e01447b4/thumbnails/thumbnail.jpg?time=0s' },
+  { id: 'c23', title: 'Bad Driver',                            category: 'Commercial', videoId: '4fac975776cf6126ea30aa3a14af8bd2', thumbnailUrl: 'https://videodelivery.net/4fac975776cf6126ea30aa3a14af8bd2/thumbnails/thumbnail.jpg?time=0s' },
+  { id: 'c24', title: 'Veteran Recruiter',                     category: 'Commercial', videoId: '2840f3ec170d4b8acce75c089058681c', thumbnailUrl: 'https://videodelivery.net/2840f3ec170d4b8acce75c089058681c/thumbnails/thumbnail.jpg?time=0.42s' },
+  { id: 'c25', title: 'Official D&D One Shot Trailer',         category: 'Commercial', videoId: '666d003483b4d2ce4fbb45db87e9ae6b', thumbnailUrl: 'https://videodelivery.net/666d003483b4d2ce4fbb45db87e9ae6b/thumbnails/thumbnail.jpg?time=0s' },
 ];
 
 const NARRATIVE_VIDEOS: VideoItem[] = [
